@@ -1,5 +1,7 @@
 package fr.epita.datamodel;
 
+import java.util.Arrays;
+
 public class Question {
 
 	private String questionTitle;
@@ -10,6 +12,7 @@ public class Question {
 	public String getQuestionTitle() {
 		return questionTitle;
 	}
+
 	public void setQuestionTitle(String questionTitle) {
 		this.questionTitle = questionTitle;
 	}
@@ -26,6 +29,11 @@ public class Question {
 		this.difficulty = difficulty;
 	}
 	
+	@Override
+	public String toString() {
+		return "Question [questionTitle=" + questionTitle + ", topics=" + Arrays.toString(topics) + ", difficulty="
+				+ difficulty + "]";
+	}
 	
 	
 }

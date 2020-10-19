@@ -27,6 +27,10 @@
          <property name="driverClassName" value="org.postgresql.Driver"></property>
  
      </bean>
+	 <bean id="questionSample" class="fr.epita.datamodel.Question">
+         <property name="questionTitle" value="What is Java?"></property>
+ 
+     </bean>
 
 
 </beans>

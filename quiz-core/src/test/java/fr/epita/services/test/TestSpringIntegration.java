@@ -19,6 +19,12 @@ import fr.epita.datamodel.Question;
 @ContextConfiguration("/applicationContext.xml")
 public class TestSpringIntegration {
 	
+	
+	@Inject
+	@Named("questionSample")
+	Question qSample;
+	
+	
 	@Inject
 	@Named("datasourcePGSQL")
 	DataSource ds;
@@ -51,6 +57,9 @@ public class TestSpringIntegration {
 	public void testSimpleDataModelInjection() {
 		Question question = new Question();
 		question.setQuestionTitle("What is Java?");
+		Assert.assertEquals(question.toString(), qSample.toString());
+		System.out.println("original handmade question : " + question);
+		System.out.println("injected question (spring) : " + question);
 	}
 
 }
