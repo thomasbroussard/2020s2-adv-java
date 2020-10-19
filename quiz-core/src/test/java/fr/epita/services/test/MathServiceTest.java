@@ -1,8 +1,10 @@
 package fr.epita.services.test;
 
+import org.junit.Assert;
 import org.junit.Test;
 
 import fr.epita.services.MathService;
+
 
 public class MathServiceTest {
 	
@@ -16,11 +18,15 @@ public class MathServiceTest {
 		int res = MathService.factorial(i);
 		
 		//then we should expect 120 as a result
-		if (res != 120) {
-			throw new IllegalStateException("the returned result is not matching the requirements");
-		}else {
-			System.out.println("success : result = " +res );
-		}
+//		if (res != 100) {
+//			throw new IllegalStateException("the returned result is not matching the requirements");
+//		}else {
+//			System.out.println("success : result = " +res );
+//		}
+		
+		Assert.assertEquals(120, res);
+		System.out.println("success : result = " +res );
+		
 	}
 
 }
