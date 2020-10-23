@@ -41,3 +41,9 @@ CREATE TABLE public.topics
         ON DELETE SET NULL
 )
 
+
+CREATE SEQUENCE question_id_seq;
+ALTER TABLE QUESTIONS ALTER question_id SET DEFAULT NEXTVAL('question_id_seq');
+
+
+
