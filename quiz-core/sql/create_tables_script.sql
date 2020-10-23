@@ -20,3 +20,24 @@ ALTER TABLE TOPICS ADD CONSTRAINT question_fk FOREIGN KEY (f_question_id) REFERE
 ALTER TABLE TOPICS ADD CONSTRAINT topic_pk PRIMARY KEY (name, f_question_id);
 
 
+-- all in one scripts:
+
+CREATE TABLE public.questions
+(
+    title character varying(1500) COLLATE pg_catalog."default" NOT NULL,
+    difficulty integer,
+    question_id integer NOT NULL,
+    CONSTRAINT question_pk PRIMARY KEY (question_id)
+)
+
+CREATE TABLE public.topics
+(
+    name character varying(255) COLLATE pg_catalog."default" NOT NULL,
+    f_question_id integer NOT NULL,
+    CONSTRAINT topic_pk PRIMARY KEY (name, f_question_id),
+    CONSTRAINT question_fk FOREIGN KEY (f_question_id)
+        REFERENCES public.questions (question_id) MATCH SIMPLE
+        ON UPDATE NO ACTION
+        ON DELETE SET NULL
+)
+
