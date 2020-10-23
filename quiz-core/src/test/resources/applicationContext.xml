@@ -21,7 +21,7 @@
 
 
 	 <bean id="datasourcePGSQL" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
-         <property name="url" value="jdbc:postgresql://localhost:5432/postgres"></property>
+         <property name="url" value="jdbc:postgresql://localhost:5432/quiz-application"></property>
          <property name="username" value="postgres"></property>
          <property name="password" value="postgres"></property>
          <property name="driverClassName" value="org.postgresql.Driver"></property>
@@ -31,6 +31,8 @@
          <property name="questionTitle" value="What is Java?"></property>
  
      </bean>
+     
+     <bean id="questionDAO" class="fr.epita.services.QuestionDAO" />
 
 
 </beans>

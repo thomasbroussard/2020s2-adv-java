@@ -6,6 +6,7 @@ import java.sql.SQLException;
 import java.util.List;
 
 import javax.inject.Inject;
+import javax.inject.Named;
 import javax.sql.DataSource;
 
 import fr.epita.datamodel.Question;
@@ -14,6 +15,7 @@ import fr.epita.exception.CreationFailedException;
 public class QuestionDAO {
 
 	@Inject
+	@Named("datasourcePGSQL")
 	private DataSource ds;
 
 	public void create(Question question) throws CreationFailedException  {
@@ -33,10 +35,6 @@ public class QuestionDAO {
 			creationFailedException.initCause(sqle);
 			throw creationFailedException;	
 		}
-	}
-
-	public List<Question> search(Question questionQBE) {
-
 	}
 
 	public void update(Question question) {
