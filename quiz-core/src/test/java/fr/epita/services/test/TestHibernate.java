@@ -41,6 +41,9 @@ public class TestHibernate {
 		// when
 		Transaction tx = session.beginTransaction();
 		session.save(question);
+		Transaction tx2 = session.beginTransaction();
+		//create choices
+		tx2.commit();
 		tx.commit();
 	
 		// then
