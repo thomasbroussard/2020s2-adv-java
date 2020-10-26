@@ -13,7 +13,9 @@ public class QuestionJPADAO {
 	SessionFactory sf;
 
 	public void create(Question question) {
+		
 		Session session = sf.openSession();
+		
 		session.save(question);
 	}
 	

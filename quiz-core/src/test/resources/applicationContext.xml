@@ -41,6 +41,9 @@
 	</bean>
 
 	<bean id="questionDAO" class="fr.epita.services.QuestionDAO" />
+	
+	<bean id="mcqChoiceDAO" class="fr.epita.services.MCQChoiceJPADAO" />
+	<bean id="questionJPADAO" class="fr.epita.services.QuestionJPADAO" />
 
 	<bean
 		class="org.springframework.beans.factory.config.PropertiesFactoryBean"

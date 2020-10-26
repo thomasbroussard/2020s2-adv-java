@@ -7,6 +7,8 @@ import javax.inject.Inject;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 
+import fr.epita.exception.CreationFailedException;
+
 public abstract class GenericDAO<T> {
 	
 	
@@ -14,9 +16,18 @@ public abstract class GenericDAO<T> {
 	SessionFactory sf;
 	
 	
-	public void create(T o) {
-		Session session = sf.openSession();
+	public void create(T o) throws CreationFailedException{
+		Session session = sf.openSession(); //not working : getCurrentSession();
+		
 		session.save(o);
+		
+	}
+	private Session getCurrentSession() {
+		Session session = sf.getCurrentSession();
+		if (session == null) {
+			session = sf.openSession();
+		}
+		return session;
 	}
 	public void update(T o) {
 		Session session = sf.openSession();
