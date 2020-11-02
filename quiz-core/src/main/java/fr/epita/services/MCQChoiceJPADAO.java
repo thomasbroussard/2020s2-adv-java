@@ -1,23 +1,40 @@
 package fr.epita.services;
 
+import java.util.HashMap;
 import java.util.List;
-
-import org.hibernate.Session;
-import org.hibernate.query.Query;
+import java.util.Map;
+import java.util.function.Function;
 
 import fr.epita.datamodel.MCQChoice;
 
 public class MCQChoiceJPADAO extends GenericDAO<MCQChoice>{
 
+
+	
 	@Override
-	public List<MCQChoice> search(MCQChoice criteria) {
-		Session session = this.sf.openSession();
-		Query<MCQChoice> query = session.createQuery("from MCQChoice c where c.valid = :valid and c.choice like :choiceContent", MCQChoice.class);
-		query.setParameter("valid", criteria.isValid());
-		query.setParameter("choiceContent", criteria.getChoice());
-		List<MCQChoice> resultList = query.getResultList();
-		return resultList;
+	protected Map<String, Object> getParams(MCQChoice criteria) {
+		Map<String,Object> parameters = new HashMap<String,Object>();
+		
+		parameters.put("question", criteria.getQuestion());
+		parameters.put("valid", criteria.isValid());
+		return parameters;
+	}
+
+	@Override
+	protected String getQueryString() {
+		return "from MCQChoice where valid=:valid and question=:question";
 	}
 	
+	public List<MCQChoice> specificSearch(MCQChoice criteria){
+		Function<MCQChoice, Map<String, Object>> getParamsFunction = choice -> {
+			Map<String, Object> parameters = new HashMap<String,Object>();
+			parameters.put("question", criteria.getQuestion());
+			parameters.put("valid", criteria.isValid());
+			return parameters;
+		};
+		return super.search(criteria, getParamsFunction, "from MCQChoice where valid=:valid and question=:question");
+		
+	}
+
 
 }

@@ -1,24 +1,21 @@
 package fr.epita.services;
 
-import javax.inject.Inject;
-
-import org.hibernate.Session;
-import org.hibernate.SessionFactory;
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 
 import fr.epita.datamodel.Question;
 
 public class QuestionJPADAO {
 
-	@Inject
-	SessionFactory sf;
+//	@Inject
+//	SessionFactory sf;
+
+	@PersistenceContext
+	EntityManager em;
 
 	public void create(Question question) {
-		
-		Session session = sf.openSession();
-		
-		session.save(question);
+
+		em.persist(question);
 	}
-	
-	
 
 }

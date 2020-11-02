@@ -3,6 +3,7 @@ package fr.epita.services.test;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.util.Arrays;
 
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -22,6 +23,7 @@ import fr.epita.datamodel.Question;
 import fr.epita.exception.CreationFailedException;
 import fr.epita.services.MCQChoiceJPADAO;
 import fr.epita.services.QuestionJPADAO;
+import fr.epita.services.QuizCreationDataService;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration("/applicationContext.xml")
@@ -32,15 +34,14 @@ public class TestMCQChoiceJPADAO {
 	@Inject
 	QuestionJPADAO questionDao;
 	
+	@Inject
+	QuizCreationDataService dataservice;
 	
 	@Inject
 	@Named("datasourceH2")
 	DataSource ds;
 	
-	
-	@Inject
-	SessionFactory sf;
-	
+
 	@Test
 	public void testCreation() {
 		Question question = new Question();
@@ -63,13 +64,7 @@ public class TestMCQChoiceJPADAO {
 		//when
 		try {
 			
-			
-//			questionDao.create(question);
-//			choice.setQuestion(question);
-			Session session = sf.openSession();
-			Transaction tx = session.beginTransaction();
-			dao.create(choice);
-			tx.commit();
+			dataservice.createMCQQuestion(question, Arrays.asList(choice, choice2, choice3));
 		
 		} catch (CreationFailedException e) {
 			// TODO Auto-generated catch block
@@ -85,12 +80,12 @@ public class TestMCQChoiceJPADAO {
 			ResultSet rs = stmt.executeQuery();
 			int i = 0; 
 			while (rs.next()) {
-				System.out.println(rs.getString("questionTitle"));
+				System.out.println(rs.getString("choice"));
 				i++;
 			}
 			Assert.assertNotEquals(0, i);
 		} catch (Exception e) {
-
+			e.printStackTrace();
 		}
 	}
 	

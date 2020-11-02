@@ -1,7 +1,6 @@
 package fr.epita.services.test;
 
 import javax.inject.Inject;
-import javax.transaction.Transactional;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -9,18 +8,18 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import fr.epita.datamodel.Question;
-import fr.epita.services.QuestionJPADAO;
+import fr.epita.exception.CreationFailedException;
+import fr.epita.services.QuestionDAO;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration("/applicationContext.xml")
-public class TestQuestionDAO {
+public class TestQuestionJPADAO {
 	
 	@Inject
-	QuestionJPADAO dao;
+	QuestionDAO dao;
 	
 	
 	@Test
-	@Transactional
 	public void testCreation() {
 		//given
 	
@@ -29,8 +28,12 @@ public class TestQuestionDAO {
 		question.setDifficulty(2);
 		
 		//when
-		dao.create(question);
-
+		try {
+			dao.create(question);
+		} catch (CreationFailedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
 		//todo check result
 	}

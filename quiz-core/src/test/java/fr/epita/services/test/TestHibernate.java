@@ -26,45 +26,45 @@ public class TestHibernate {
 	@Inject
 	@Named("datasourceH2")
 	private DataSource ds;
+//
+//	@Inject
+//	private SessionFactory sf;
 
-	@Inject
-	private SessionFactory sf;
-
-	@Test
-	public void testHibernate() {
-		// given
-		Session session = sf.openSession();
-		Question question = new Question();
-		question.setDifficulty(1);
-		question.setQuestionTitle("this is a test from hibernate");
-
-		// when
-		Transaction tx = session.beginTransaction();
-		session.save(question);
-		Transaction tx2 = session.beginTransaction();
-		//create choices
-		tx2.commit();
-		tx.commit();
-	
-		// then
-		try (Connection connection = ds.getConnection();
-				PreparedStatement stmt = connection
-						.prepareStatement("select questionTitle from question where questionTitle = ?")) {
-			stmt.setString(1,question.getQuestionTitle() );
-			ResultSet rs = stmt.executeQuery();
-			int i = 0; 
-			while (rs.next()) {
-				System.out.println(rs.getString("questionTitle"));
-				i++;
-				//TODO : check with assertion
-			}
-			Assert.assertNotEquals(0, i);
-		} catch (Exception e) {
-
-		}
-	
-	
-
-	}
+//	@Test
+//	public void testHibernate() {
+//		// given
+//		Session session = sf.openSession();
+//		Question question = new Question();
+//		question.setDifficulty(1);
+//		question.setQuestionTitle("this is a test from hibernate");
+//
+//		// when
+//		Transaction tx = session.beginTransaction();
+//		session.save(question);
+//		Transaction tx2 = session.beginTransaction();
+//		//create choices
+//		tx2.commit();
+//		tx.commit();
+//	
+//		// then
+//		try (Connection connection = ds.getConnection();
+//				PreparedStatement stmt = connection
+//						.prepareStatement("select questionTitle from question where questionTitle = ?")) {
+//			stmt.setString(1,question.getQuestionTitle() );
+//			ResultSet rs = stmt.executeQuery();
+//			int i = 0; 
+//			while (rs.next()) {
+//				System.out.println(rs.getString("questionTitle"));
+//				i++;
+//				//TODO : check with assertion
+//			}
+//			Assert.assertNotEquals(0, i);
+//		} catch (Exception e) {
+//
+//		}
+//	
+//	
+//
+//	}
 
 }
