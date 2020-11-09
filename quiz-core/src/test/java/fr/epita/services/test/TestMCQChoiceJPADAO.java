@@ -10,6 +10,8 @@ import javax.inject.Inject;
 import javax.inject.Named;
 import javax.sql.DataSource;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
@@ -18,6 +20,9 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 import fr.epita.datamodel.MCQChoice;
 import fr.epita.datamodel.Question;
@@ -31,6 +36,8 @@ import fr.epita.services.dto.QuestionDTO;
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration("/applicationContext.xml")
 public class TestMCQChoiceJPADAO {
+	
+	private static final Logger LOGGER = LogManager.getLogger(TestMCQChoiceJPADAO.class);
 	
 	@Inject
 	MCQChoiceJPADAO dao;
@@ -115,7 +122,9 @@ public class TestMCQChoiceJPADAO {
 	
 	
 	@Test
-	public void testSearchAll() {
+	public void testSearchAll() throws JsonProcessingException {
+		
+		LOGGER.info("entering the TestSearchAll method");
 		Question question = new Question();
 		question.setQuestionTitle("What is Java ?");
 		
@@ -157,7 +166,10 @@ public class TestMCQChoiceJPADAO {
 			//then
 			Assert.assertEquals(2, allQuestionsWithChoices.size());
 			
-			System.out.println(allQuestionsWithChoices);
+			//jackson
+			ObjectMapper mapper = new ObjectMapper();
+			String output = mapper.writer().writeValueAsString(allQuestionsWithChoices);
+			LOGGER.info(output);
 		} catch (CreationFailedException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
