@@ -46,6 +46,12 @@ public class MCQChoice {
 	public void setQuestion(Question question) {
 		this.question = question;
 	}
+	@Override
+	public String toString() {
+		return "MCQChoice [id=" + id + ", choice=" + choice + ", valid=" + valid + ", question=" + question + "]";
+	}
+	
+	
 	
 	
 }

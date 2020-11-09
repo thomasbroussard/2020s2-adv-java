@@ -35,6 +35,11 @@ public class MCQChoiceJPADAO extends GenericDAO<MCQChoice>{
 		return super.search(criteria, getParamsFunction, "from MCQChoice where valid=:valid and question=:question");
 		
 	}
+	public List<MCQChoice> searchAll(){
+	
+		return super.search(null, choice -> new HashMap(), "from MCQChoice");
+		
+	}
 
 
 }

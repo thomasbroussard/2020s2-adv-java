@@ -44,7 +44,7 @@ public abstract class GenericDAO<T> {
 	}
 	
 	public List<T> search(T criteria, Function<T,Map<String,Object>> getParamsFunction, String queryString){
-		Query query = em.createQuery(getQueryString());
+		Query query = em.createQuery(queryString);
 		
 		
 		Map<String,Object> params = getParamsFunction.apply(criteria);
