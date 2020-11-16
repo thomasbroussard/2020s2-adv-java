@@ -24,7 +24,7 @@ public class QuizResource {
 	
 	
 	@GET
-	@Path("question/{questionId}")
+	@Path("/question/{questionId}")
 	@Produces(MediaType.APPLICATION_JSON)
 	public void getQuestion(@PathParam("questionId") String questionId) {
 		System.out.println(questionId);
