@@ -8,9 +8,6 @@ import javax.persistence.PersistenceContext;
 import javax.transaction.Transactional;
 import javax.transaction.Transactional.TxType;
 
-import org.hibernate.Session;
-import org.hibernate.SessionFactory;
-
 import fr.epita.datamodel.MCQChoice;
 import fr.epita.datamodel.Question;
 import fr.epita.exception.CreationFailedException;

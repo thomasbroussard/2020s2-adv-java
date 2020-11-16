@@ -154,7 +154,7 @@ public class TestMCQChoiceJPADAO {
 		MCQChoice choice2_3= new MCQChoice();
 		choice2_3.setValid(true);
 		choice2_3.setChoice("none of the other choices");
-		
+		LOGGER.debug("test");
 		
 		
 		//when
