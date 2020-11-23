@@ -1,6 +1,7 @@
 package fr.epita.services;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
@@ -11,6 +12,8 @@ import javax.transaction.Transactional.TxType;
 import fr.epita.datamodel.MCQChoice;
 import fr.epita.datamodel.Question;
 import fr.epita.exception.CreationFailedException;
+import fr.epita.services.dto.MCQChoiceDTO;
+import fr.epita.services.dto.QuestionDTO;
 
 public class QuizCreationDataService {
 	
@@ -31,13 +34,20 @@ public class QuizCreationDataService {
 	 * @throws CreationFailedException 
 	 */
 	@Transactional(value = TxType.REQUIRED)
-	public void createMCQQuestion(Question question, List<MCQChoice> choices) throws CreationFailedException {
+	public void createMCQQuestion(QuestionDTO dto) throws CreationFailedException {
 		
-	
-		questionDAO.create(question);
+		Question dataModel = dto.toDataModel();
+		List<MCQChoiceDTO> DTOChoices = dto.getChoices();
+		List<MCQChoice> choices = DTOChoices.stream()
+				.map(MCQChoiceDTO::toDataModel)
+				.collect(Collectors.toList());
+		
+		
+		questionDAO.create(dataModel);
 		for (MCQChoice choice : choices) {
-			choice.setQuestion(question);
+			choice.setQuestion(dataModel);
 			mcqChoiceDAO.create(choice);
 		}
+		dto.setQuestionId(dataModel.getQuestionId());
 	}
 }

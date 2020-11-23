@@ -38,18 +38,14 @@ public class QuizResource {
 		if (dto == null) {
 			return Response.status(400, "no question was provided").entity("bad request").build();
 		}
-		Question dataModel = dto.toDataModel();
-		List<MCQChoiceDTO> DTOChoices = dto.getChoices();
-		List<MCQChoice> choices = DTOChoices.stream()
-				.map(MCQChoiceDTO::toDataModel)
-				.collect(Collectors.toList());
+
 		try {
-			service.createMCQQuestion(dataModel, choices);
+			service.createMCQQuestion(dto);
 		}catch(CreationFailedException cfe) {
 			return Response.notModified().build();
 		}
 		
-		return Response.created(URI.create(String.valueOf(dataModel.getQuestionId()))).build();
+		return Response.created(URI.create(String.valueOf("quiz/"+id+"/question/"+ dto.getQuestionId()))).build();
 	}
 	
 	

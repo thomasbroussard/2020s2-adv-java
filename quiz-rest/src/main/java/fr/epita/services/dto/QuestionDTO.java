@@ -6,7 +6,7 @@ import fr.epita.datamodel.Question;
 
 public class QuestionDTO {
 	
-	private int id;
+	private Integer id;
 	
 	private String questionTitle;
 	
@@ -46,6 +46,16 @@ public class QuestionDTO {
 	@Override
 	public String toString() {
 		return "QuestionDTO [id=" + id + ", questionTitle=" + questionTitle + ", choices=" + choices + "]";
+	}
+
+	public Integer getQuestionId() {
+	
+		return this.id;
+	}
+
+	public void setQuestionId(Integer questionId) {
+		this.id = questionId;
+		
 	}
 
 
