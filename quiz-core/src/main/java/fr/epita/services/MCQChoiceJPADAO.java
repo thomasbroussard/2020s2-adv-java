@@ -22,7 +22,7 @@ public class MCQChoiceJPADAO extends GenericDAO<MCQChoice>{
 
 	@Override
 	protected String getQueryString() {
-		return "from MCQChoice where valid=:valid and question=:question";
+		return "from MCQChoice where (:valid is not null and valid=:valid) and question=:question";
 	}
 	
 	public List<MCQChoice> specificSearch(MCQChoice criteria){

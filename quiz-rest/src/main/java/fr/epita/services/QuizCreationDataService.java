@@ -50,4 +50,29 @@ public class QuizCreationDataService {
 		}
 		dto.setQuestionId(dataModel.getQuestionId());
 	}
+
+	public QuestionDTO getById(String questionId) {
+		QuestionDTO dto = new QuestionDTO();
+		MCQChoice mcqChoiceCriteria = new MCQChoice();
+		Question mcqQuestionCriteria = new Question();
+		mcqQuestionCriteria.setQuestionId(Integer.valueOf(questionId));
+		mcqChoiceCriteria.setQuestion(mcqQuestionCriteria);
+		
+		List<MCQChoice> choices = mcqChoiceDAO.search(mcqChoiceCriteria);
+		Question question = choices.get(0).getQuestion();
+		
+		
+		dto.fromDataModel(question);
+		List<MCQChoiceDTO> choicesDTO = choices.stream()
+			.map(choice ->  {
+				MCQChoiceDTO mcqChoiceDTO = new MCQChoiceDTO();
+				mcqChoiceDTO.fromDataModel(choice);
+				return mcqChoiceDTO;
+			})
+			.collect(Collectors.toList());
+		
+		dto.setChoices(choicesDTO);
+		return dto;
+		
+	}
 }
