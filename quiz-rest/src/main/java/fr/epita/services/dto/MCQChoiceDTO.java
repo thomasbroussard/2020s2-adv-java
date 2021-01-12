@@ -23,9 +23,10 @@ public class MCQChoiceDTO {
 		return choice;
 	}
 	
-	public void fromDataModel(MCQChoice choice) {
+	public MCQChoiceDTO fromDataModel(MCQChoice choice) {
 		this.choiceTitle = choice.getChoice();
 		this.id = choice.getId();
+		return this;
 	}
 
 	@Override

@@ -31,6 +31,7 @@ import fr.epita.services.MCQChoiceJPADAO;
 import fr.epita.services.QuestionJPADAO;
 import fr.epita.services.QuizCreationDataService;
 import fr.epita.services.QuizReportingDataService;
+import fr.epita.services.dto.MCQChoiceDTO;
 import fr.epita.services.dto.QuestionDTO;
 
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -93,7 +94,10 @@ public class TestMCQChoiceJPADAO {
 		//when
 		try {
 			
-			creationDataService.createMCQQuestion(question, Arrays.asList(choice, choice2, choice3));
+			QuestionDTO dto = fromDataModel(question, choice, choice2, choice3);
+			creationDataService.createMCQQuestion(dto);
+			
+			
 			creationDataService.createMCQQuestion(question2, Arrays.asList(choice2_1, choice2_2, choice2_3));
 		
 		} catch (CreationFailedException e) {
@@ -117,6 +121,18 @@ public class TestMCQChoiceJPADAO {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+	}
+
+
+
+	private QuestionDTO fromDataModel(Question question, MCQChoice... choices) {
+		QuestionDTO dto = new QuestionDTO().fromDataModel(question);
+		
+		List<MCQChoice> choicesList = Arrays.asList(choices);
+		for (MCQChoice currentChoice : choicesList) {
+			dto.getChoices().add(new MCQChoiceDTO().fromDataModel(currentChoice));
+		}
+		return dto;
 	}
 	
 	

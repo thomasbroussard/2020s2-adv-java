@@ -38,9 +38,10 @@ public class QuestionDTO {
 		return question;
 	}
 	
-	public void fromDataModel(Question question) {
+	public QuestionDTO fromDataModel(Question question) {
 		this.questionTitle = question.getQuestionTitle();
 		this.id = question.getQuestionId();
+		return this;
 	}
 
 	@Override
